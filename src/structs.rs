@@ -1,7 +1,7 @@
 pub fn run_demo() {
-    println!("--- PHASE 3: STRUCTS ---");
+    println!("--- PHASE 3: STRUCTS (YAPILAR) ---");
 
-    // 6. Defining and Using Structs
+    // 6. Struct Tanımlama ve Kullanma
     let mut user1 = User {
         username: String::from("yusuf123"),
         email: String::from("yusuf@example.com"),
@@ -9,17 +9,17 @@ pub fn run_demo() {
         active: true,
     };
 
-    println!("Username: {}", user1.username);
+    println!("Kullanıcı adı: {}", user1.username);
 
-    // Changing value (allowed because user1 is 'mut')
+    // Değer değiştirme (user1 'mut' olduğu için izin verilir)
     user1.email = String::from("new_email@example.com");
 
-    // 7. Using Methods (impl)
+    // 7. Metot Kullanımı (impl)
     user1.say_hello();
     println!("");
 }
 
-// Define a Struct
+// Bir Struct (Yapı) tanımlayalım
 struct User {
     pub username: String,
     pub email: String,
@@ -27,9 +27,12 @@ struct User {
     pub active: bool,
 }
 
-// Add methods to the struct
+// Struct'a özel metotlar ekleyelim
 impl User {
     fn say_hello(&self) {
-        println!("Hello, I am {}! My email: {}", self.username, self.email);
+        println!(
+            "Merhaba, ben {}! Email adresim: {}",
+            self.username, self.email,
+        );
     }
 }
