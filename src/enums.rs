@@ -15,6 +15,20 @@ pub fn run_demo() {
     print_ip(home);
     print_ip(loopback);
 
+    // --- OPTION VE MATCH DERİNLEMESİ ---
+
+    // Bir kutu düşün (Option). İçinde hediye olabilir (Some) ya da boş olabilir (None).
+    let hediye_kutusu = Some("Akıllı Telefon");
+    let bos_kutu: Option<&str> = None;
+
+    println!("Hediye kutusu kontrol ediliyor...");
+    open_box(hediye_kutusu);
+
+    println!("Boş kutu kontrol ediliyor...");
+    open_box(bos_kutu);
+
+    println!("");
+
     // 11. Option Enumu (Hataları güvenli yönetmek için)
     // Rust'ta 'null' yoktur. Bunun yerine Option<T> kullanılır.
     let some_number = Some(5);
@@ -28,6 +42,20 @@ pub fn run_demo() {
         None => println!("Hiçbir şey yok!"),
     }
     println!("");
+}
+
+// match yapısı ile 'Option' kutusunu güvenle açıyoruz
+fn open_box(kutu: Option<&str>) {
+    match kutu {
+        Some(hediye) => {
+            // Eğer kutu doluysa (Some), içindeki veriyi 'hediye' ismine bağla (bind)
+            println!("Yaşasın! Kutudan '{}' çıktı.", hediye);
+        }
+        None => {
+            // Eğer kutu boşsa (None), ne yapacağımızı burada belirliyoruz
+            println!("Maalesef kutu boş çıktı...");
+        }
+    }
 }
 
 // Basit bir enum - Bu değerlerden sadece biri olabilir
