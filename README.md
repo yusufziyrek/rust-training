@@ -1,9 +1,22 @@
-# Rust Öğrenme Notları 🦀
+## Veri Tipleri (Data Types)
+Rust'ta veri tipleri iki ana gruba ayrılır: **Scalar** (tek değer) ve **Compound** (çoklu değer).
+
+### Scalar Tipler
+- **Integers (Tam Sayılar):** `i32` (varsayılan), `u64`, `i8` vb.
+- **Floating-Point (Ondalıklı):** `f64` (varsayılan), `f32`.
+- **Booleans:** `true`, `false`.
+- **Characters:** `'a'`, `'🦀'` (Unicode destekli, tek tırnak).
+
+### Compound Tipler
+- **Tuples (Demetler):** Farklı tipleri bir araya getirir. Örn: `(500, 6.4, 1)`.
+- **Arrays (Diziler):** Aynı tipten sabit sayıda eleman. Örn: `[1, 2, 3]`.
+
+---
 
 ## 1. Ownership (Sahiplik) - Rust'ın Kalbi
 Rust'ta her verinin bir **sahibi** vardır. Bu sistem, Garbage Collector olmadan hafıza güvenliğini sağlar.
 
-- **Move (Taşıma):** Bir değişken başka bir değişkene atandığında (String gibi Heap verileri için), sahiplik yeni değişkene geçer. Eski değişken artık kullanılamaz.
+- **Move (Taşıma):** Bir değişken başka bir değişken atandığında (String gibi Heap verileri için), sahiplik yeni değişkene geçer. Eski değişken artık kullanılamaz.
 - **Copy (Kopyalama):** Sayılar gibi basit tipler (Stack'te tutulanlar) kopyalanır, eski değişken hala geçerlidir.
 
 ---
@@ -75,12 +88,20 @@ Kod tekrarını önlemek için tip bağımsız fonksiyonlar yazmamızı sağlar.
 
 ---
 
-## 10. Closures (Kapanışlar / İsimsiz Fonksiyonlar)
+## 10. Lifetimes (Yaşam Süreleri) - `'a`
+Rust'ın referansların hala geçerli (hafızada canlı) olup olmadığını anladığı sistemdir.
+
+- **Dangling Reference Önleyici:** Lifetimes, bir referansın işaret ettiği veriden daha uzun süre yaşamasını engeller.
+- **Generic Lifetimes (`'a`):** Eğer bir fonksiyon dışarıdan aldığı referansı geri döndürüyorsa, derleyici "Bu verilerden hangisi ne kadar yaşıyor?" diye sorar. Biz de `<'a>` ile "Hepsi aynı ömre sahip" deriz.
+
+---
+
+## 11. Closures (Kapanışlar / İsimsiz Fonksiyonlar)
 Değişken gibi davranan fonksiyonlardır. `|parametre| { gövde }` sözdizimiyle yazılırlar. Dışındaki değişkenlere erişebilirler.
 
 ---
 
-## 11. Iterators (İteratörler)
+## 12. İteratörler (Iterators)
 Döngü yazmak yerine veriyi "borulardan" geçirir gibi işlememizi sağlar.
 
 - **`.iter()`**: Bir koleksiyonu işleme sırasına sokar.
@@ -88,3 +109,33 @@ Döngü yazmak yerine veriyi "borulardan" geçirir gibi işlememizi sağlar.
 - **`.filter()`**: Şartı uymayanları eler.
 - **`.collect()`**: İşlem bitmiş verileri tekrar bir listeye (Vector vb.) toplar.
 - **Performans:** Rust'ta bu yapı (`Zero-cost abstractions`), düz `for` döngüsü kadar hızlıdır.
+
+---
+
+## 13. Birim Testler (Unit Tests)
+Kodun doğruluğunu otomatik olarak denetleyen küçük fonksiyonlardır.
+
+- **`#[test]`**: Fonksiyonun bir test olduğunu belirtir.
+- **`assert_eq!(a, b)`**: `a` ve `b` eşit değilse testi durdurur ve hata verir.
+- **`#[cfg(test)]`**: Test kodlarının sadece test aşamasında derlenmesini sağlar.
+- **Komut**: `cargo test` komutu tüm projedeki testleri bulur ve çalıştırır.
+
+---
+
+## 14. Syntax (Sözdizimi) Hızlı Sözlüğü 📖
+Rust kodlarında sıkça göreceğin sembollerin anlamları:
+
+- **`let mut x`**: Değiştirilebilir değişken.
+- **`&x` / `&mut x`**: Verinin referansını (adresini) alma.
+- **`*x`**: Referansın içindeki değere ulaşma (Dereferencing).
+- **`::`**: Path ayırıcı (Örn: `std::vec::Vec`).
+- **`.`**: Metot çağırma (Örn: `x.len()`).
+- **`->`**: Fonksiyon dönüş tipi belirteci.
+- **`=>`**: Match kollarında kullanılır ("ise bunu yap").
+- **`!`**: Makro işareti (Örn: `println!`).
+- **`?`**: Hata varsa hemen geri dön (Error propagation).
+- **`<'a, T>`**: Lifetime ve Generic tanımlama alanı.
+- **`::<>`**: "Turbo Fish" - Tipi elle belirtme (Örn: `collect::<Vec<i32>>()`).
+- **` ; `**: İşlemi bitirir. Eğer bir bloğun son satırında yoksa, o değer **return** edilir.
+
+---

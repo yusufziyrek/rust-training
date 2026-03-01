@@ -12,8 +12,8 @@ pub fn run_demo() {
     let numbers = vec![1, 2, 3, 4, 5];
 
     // İteratör sihrini kullanalım:
-    // map: Her elemanı değiştirir.
     // filter: Belirli şartı sağlayanları seçer.
+    // map: Her elemanı değiştirir.
     // collect: Sonucu yeni bir koleksiyona dönüştürür.
     let squared_even_numbers: Vec<i32> = numbers
         .iter() // 1. İteratör oluştur
